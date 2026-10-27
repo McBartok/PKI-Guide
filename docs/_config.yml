@@ -2,7 +2,7 @@ title: PKI & Certificate Flow
 description: A concept-first PKI and TLS guide for developers and engineers.
 remote_theme: just-the-docs/just-the-docs
 url: ""
-baseurl: ""
+baseurl: "/PKI-Guide"
 
 search_enabled: true
 heading_anchors: true
