@@ -1,0 +1,13 @@
+title: PKI & Certificate Flow
+description: A concept-first PKI and TLS guide for developers and engineers.
+remote_theme: just-the-docs/just-the-docs
+url: ""
+baseurl: ""
+
+search_enabled: true
+heading_anchors: true
+back_to_top: true
+back_to_top_text: Back to top
+
+plugins:
+  - jekyll-remote-theme
