@@ -7,7 +7,12 @@ nav_order: 1
 
 A short, concept-first guide for developers and engineers who use certificates (HTTPS, mTLS, signing) and want to understand **how, why, and where** they work.
 
-## Choose a path
+## Start here
+
+The main flow is the [Learn path](learn/index.md) (chapters 0-6).  
+Use [Reference](reference/index.md) as optional deep-dive and troubleshooting material.
+
+## Choose a goal
 
 ### New to PKI
 Start with [Crash course](learn/00-crash-course.md), then continue through the [Learn path](learn/index.md).

@@ -2,7 +2,7 @@
 
 A short, concept-first guide for developers and engineers who use certificates (HTTPS, mTLS, signing) and want to understand **how, why, and where** they work, not just which flags make the error go away.
 
-## Reading order
+## Core learn path (0-6)
 
 0. [Crash course](docs/learn/00-crash-course.md): the whole picture in one sitting (new to this? start here; otherwise skip to 1)
 1. [Cryptography foundations](docs/learn/01-crypto-foundations.md): security properties, hashing, symmetric/asymmetric, forward secrecy, algorithm choice
@@ -11,9 +11,12 @@ A short, concept-first guide for developers and engineers who use certificates (
 4. [TLS and mTLS flow](docs/learn/04-tls-and-mtls-flow.md): where certificates are used in a handshake
 5. [Certificate lifecycle](docs/learn/05-certificate-lifecycle.md): CSR, issuance, renewal, revocation, automation, key compromise and incident response
 6. [Where you use it](docs/learn/06-where-you-use-it.md): real-world uses and deployment context
-7. [Appendix: trust failures, pinning, and case studies](docs/reference/07-trust-failures-pinning-and-case-studies.md): deeper threat scenarios and incident analysis
-8. [Debugging cheat sheet](docs/reference/debugging-cheat-sheet.md): triage flow, commands, and common errors
-9. [Glossary](docs/glossary.md): quick definitions for core PKI/TLS terms
+
+## Optional reference
+
+- [Trust failures, pinning, and case studies](docs/reference/07-trust-failures-pinning-and-case-studies.md): deeper threat scenarios and incident analysis
+- [Debugging cheat sheet](docs/reference/debugging-cheat-sheet.md): triage flow, commands, and common errors
+- [Glossary](docs/glossary.md): quick definitions for core PKI/TLS terms
 
 ## Conventions
 

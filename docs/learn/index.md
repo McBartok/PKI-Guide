@@ -15,3 +15,5 @@ Follow these chapters in order:
 4. [TLS and mTLS flow](04-tls-and-mtls-flow.md)
 5. [Certificate lifecycle](05-certificate-lifecycle.md)
 6. [Where you use it](06-where-you-use-it.md)
+
+Optional next step: [Trust failures, pinning, and case studies](../reference/07-trust-failures-pinning-and-case-studies.md).
