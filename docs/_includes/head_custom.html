@@ -1,0 +1,79 @@
+<style>
+  #theme-toggle {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 1200;
+    border: 1px solid #8b8b8b;
+    border-radius: 6px;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    background: #ffffff;
+    color: #111111;
+  }
+
+  .jtd-dark #theme-toggle {
+    background: #1f1f1f;
+    color: #f2f2f2;
+    border-color: #6a6a6a;
+  }
+</style>
+
+<script>
+  (function () {
+    const storageKey = "site-theme";
+    const validThemes = new Set(["light", "dark"]);
+
+    function applyTheme(theme) {
+      if (!validThemes.has(theme)) {
+        return false;
+      }
+      if (window.jtd && typeof window.jtd.setTheme === "function") {
+        window.jtd.setTheme(theme);
+        return true;
+      }
+      return false;
+    }
+
+    const savedTheme = localStorage.getItem(storageKey);
+    if (savedTheme) {
+      if (!applyTheme(savedTheme)) {
+        document.addEventListener("DOMContentLoaded", function () {
+          applyTheme(savedTheme);
+        });
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.id = "theme-toggle";
+
+      function currentTheme() {
+        const fromStorage = localStorage.getItem(storageKey);
+        if (validThemes.has(fromStorage)) {
+          return fromStorage;
+        }
+        return "light";
+      }
+
+      function renderLabel(theme) {
+        btn.textContent = theme === "dark" ? "Use light mode" : "Use dark mode";
+        btn.setAttribute("aria-label", btn.textContent);
+        btn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+      }
+
+      btn.addEventListener("click", function () {
+        const next = currentTheme() === "dark" ? "light" : "dark";
+        localStorage.setItem(storageKey, next);
+        applyTheme(next);
+        renderLabel(next);
+      });
+
+      const initial = currentTheme();
+      renderLabel(initial);
+      document.body.appendChild(btn);
+    });
+  })();
+</script>
