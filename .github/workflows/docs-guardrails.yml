@@ -1,0 +1,57 @@
+name: Docs Guardrails
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - "README.md"
+      - ".github/workflows/docs-guardrails.yml"
+      - ".github/workflows/pages-deploy.yml"
+  push:
+    branches: ["main"]
+    paths:
+      - "docs/**"
+      - "README.md"
+      - ".github/workflows/docs-guardrails.yml"
+      - ".github/workflows/pages-deploy.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build-docs:
+    name: Build docs site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+
+      - name: Install Jekyll and plugins
+        run: |
+          gem install jekyll -v "~> 4.3"
+          gem install jekyll-remote-theme
+
+      - name: Build site from docs/
+        run: jekyll build --source docs --destination _site
+
+  check-links:
+    name: Check markdown links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --verbose
+            --no-progress
+            --exclude-mail
+            --base docs
+            README.md docs/**/*.md
