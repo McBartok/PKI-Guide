@@ -1,0 +1,29 @@
+FROM ruby:3.3-slim-bookworm
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV GEM_HOME=/usr/local/bundle
+ENV PATH=/usr/local/bundle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# Combine system dependencies, NodeSource setup, and installations into one layer with cleanup
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    gnupg \
+    git \
+    build-essential \
+    ca-certificates \
+    chromium \
+    nodejs \
+    npm \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Ruby gems and skip documentation generation to save space
+RUN gem install jekyll -v "~> 4.3" --no-document \
+    && gem install jekyll-remote-theme --no-document \
+    && gem install jekyll-seo-tag --no-document \
+    && gem install jekyll-include-cache --no-document \
+    && gem install jekyll-relative-links --no-document
+
+# Install Mermaid CLI and clear the npm cache
+RUN npm install -g @mermaid-js/mermaid-cli && npm cache clean --force
+
+WORKDIR /site

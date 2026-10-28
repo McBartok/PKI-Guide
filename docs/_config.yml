@@ -13,3 +13,10 @@ footer_content: ""
 
 plugins:
   - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-include-cache
+  - jekyll-relative-links
+
+relative_links:
+  enabled: true
+  collections: true

@@ -46,6 +46,9 @@ jobs:
         run: |
           gem install jekyll -v "~> 4.3"
           gem install jekyll-remote-theme
+          gem install jekyll-seo-tag
+          gem install jekyll-include-cache
+          gem install jekyll-relative-links
 
       - name: Build site from docs/
         run: jekyll build --source docs --destination _site

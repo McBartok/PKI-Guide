@@ -1,14 +1,14 @@
 ---
-title: Trust failures, pinning, and case studies
+title: 9. Trust failures, pinning, and case studies
 parent: Learn path
 nav_order: 9
 ---
 
-# 7. Appendix: Trust failures, pinning, and case studies
+# 9. Appendix: Trust Failures, Pinning, and Case Studies
 
 **Goal:** deep dive on failure modes, defensive controls, and notable incidents.
 
-This appendix expands [Trust and chains](../learn/03-trust-and-chains.md). Read chapter 3 first for the core model.
+This appendix expands [Trust and chains](03-trust-and-chains.md). Read chapter 3 first for the core model.
 
 ## When trust breaks (deep dive)
 

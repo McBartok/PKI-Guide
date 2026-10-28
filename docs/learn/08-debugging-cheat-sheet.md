@@ -1,10 +1,10 @@
 ---
-title: Debugging cheat sheet
+title: 8. Debugging cheat sheet
 parent: Learn path
 nav_order: 8
 ---
 
-# Debugging cheat sheet
+# 8. Debugging Cheat Sheet
 
 ## Quick certificate triage flow
 

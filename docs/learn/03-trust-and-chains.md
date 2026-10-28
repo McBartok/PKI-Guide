@@ -60,7 +60,7 @@ The model only works if every link holds. The most common break points are:
 - a compromised or distrusted root, and
 - a leaked leaf private key (response in [chapter 5](05-certificate-lifecycle.md#compromise-and-incident-response)).
 
-For full attack paths, pinning trade-offs, and case studies, see [Appendix: Trust failures, pinning, and case studies](../reference/07-trust-failures-pinning-and-case-studies.md).
+For full attack paths, pinning trade-offs, and case studies, see [Appendix: Trust failures, pinning, and case studies](09-trust-failures-pinning-and-case-studies.md).
 
 ### Defences at a glance
 

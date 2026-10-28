@@ -31,7 +31,7 @@ nav_order: 6
 - Systems you control end to end: private CA, with a clear plan to distribute and rotate its root.
 
 ## Pitfalls checklist
-(Consequences and incident examples: [When trust breaks](../reference/07-trust-failures-pinning-and-case-studies.md#when-trust-breaks-deep-dive); response steps: [Compromise and incident response](05-certificate-lifecycle.md#compromise-and-incident-response).)
+(Consequences and incident examples: [When trust breaks](09-trust-failures-pinning-and-case-studies.md#when-trust-breaks-deep-dive); response steps: [Compromise and incident response](05-certificate-lifecycle.md#compromise-and-incident-response).)
 - Verification disabled "just for now".
 - Name only in CN, no SAN.
 - Intermediate not served.
@@ -43,8 +43,8 @@ nav_order: 6
 
 ## Troubleshooting and reference pages
 
-- Use the [Debugging cheat sheet](../reference/debugging-cheat-sheet.md) for the step-by-step triage flow, OpenSSL/curl commands, and common error mapping.
-- Use the [Glossary](../glossary.md) for quick term lookups.
+- Use the [Debugging cheat sheet](08-debugging-cheat-sheet.md) for the step-by-step triage flow, OpenSSL/curl commands, and common error mapping.
+- Use the [Glossary](10-glossary.md) for quick term lookups.
 
 ## Recap
 - The same model (bound key, chain to a trusted anchor, checks on name, time, purpose) underlies every use.

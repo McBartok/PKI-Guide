@@ -100,7 +100,7 @@ Your OS, browser, or runtime ships a **trust store** of roots. A certificate is 
 
 | Concept | Chapter |
 |---|---|
-| What goes wrong: rogue roots, compromised CAs, skipped verification | [7. Appendix](../reference/07-trust-failures-pinning-and-case-studies.md#when-trust-breaks-deep-dive) |
+| What goes wrong: rogue roots, compromised CAs, skipped verification | [9. Appendix](09-trust-failures-pinning-and-case-studies.md#when-trust-breaks-deep-dive) |
 | Key compromise response | [5. Lifecycle](05-certificate-lifecycle.md#compromise-and-incident-response) |
 | Symmetric/asymmetric, signatures, key exchange, forward secrecy, algorithm choice | [1. Crypto foundations](01-crypto-foundations.md) |
 | Certificate fields, formats, SAN, EKU | [2. Certificates and X.509](02-certificates-and-x509.md) |

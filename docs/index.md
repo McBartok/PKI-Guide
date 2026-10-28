@@ -9,7 +9,7 @@ A short, concept-first guide for developers and engineers who use certificates (
 
 ## Start here
 
-The main flow is the [Learn path](learn/index.md) (chapters 0-11).
+The main flow is the [Learn path](learn/index.md) (chapters 0-10).
 
 ## Choose a goal
 
@@ -17,10 +17,10 @@ The main flow is the [Learn path](learn/index.md) (chapters 0-11).
 Start with [Crash course](learn/00-crash-course.md), then continue through the [Learn path](learn/index.md).
 
 ### Need to debug a certificate issue now
-Read [Trust and chains](learn/03-trust-and-chains.md), [TLS and mTLS flow](learn/04-tls-and-mtls-flow.md), and the [Debugging cheat sheet](reference/debugging-cheat-sheet.md).
+Read [Trust and chains](learn/03-trust-and-chains.md), [TLS and mTLS flow](learn/04-tls-and-mtls-flow.md), and the [Debugging cheat sheet](learn/08-debugging-cheat-sheet.md).
 
 ### Platform/security deep dive
-Follow the full [Learn path](learn/index.md), then use the [Trust failures, pinning, and case studies appendix](reference/07-trust-failures-pinning-and-case-studies.md).
+Follow the full [Learn path](learn/index.md), then use the [Trust failures, pinning, and case studies appendix](learn/09-trust-failures-pinning-and-case-studies.md).
 
 ## Scope
 

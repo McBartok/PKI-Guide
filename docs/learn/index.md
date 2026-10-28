@@ -2,6 +2,7 @@
 title: Learn path
 nav_order: 2
 has_children: true
+has_toc: false
 ---
 
 # Learn path
@@ -16,7 +17,6 @@ Follow these chapters in order:
 5. [Certificate lifecycle](05-certificate-lifecycle.md)
 6. [Where you use it](06-where-you-use-it.md)
 7. [Modern PKI and advanced topics](07-modern-pki-and-advanced-topics.md)
-8. [Debugging cheat sheet](../reference/debugging-cheat-sheet.md)
-9. [Trust failures, pinning, and case studies](../reference/07-trust-failures-pinning-and-case-studies.md)
-10. [Navigation and sidebar ordering](../reference/navigation-and-sidebar-ordering.md)
-11. [Glossary](../glossary.md)
+8. [Debugging cheat sheet](08-debugging-cheat-sheet.md)
+9. [Trust failures, pinning, and case studies](09-trust-failures-pinning-and-case-studies.md)
+10. [Glossary](10-glossary.md)

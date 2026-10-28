@@ -50,7 +50,7 @@ Expired certificates are one of the most common causes of outages. Monitor expir
 
 ## Compromise and incident response
 
-What if the private key leaks, or a CA mis-issues? (CA-level failures and case studies: [appendix](../reference/07-trust-failures-pinning-and-case-studies.md).)
+What if the private key leaks, or a CA mis-issues? (CA-level failures and case studies: [appendix](09-trust-failures-pinning-and-case-studies.md).)
 
 ### Leaf key compromised
 - **Impact:** the attacker can impersonate that name (with a MITM position) until the certificate expires or is blocked. They can decrypt recorded traffic only if sessions did not use forward secrecy (TLS 1.3 always does; see [chapter 1](01-crypto-foundations.md)).

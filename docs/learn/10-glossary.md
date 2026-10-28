@@ -1,10 +1,10 @@
 ---
-title: Glossary
+title: 10. Glossary
 parent: Learn path
-nav_order: 11
+nav_order: 10
 ---
 
-# Glossary
+# 10. Glossary
 
 - **ACME**: protocol for automated certificate issuance and renewal.
 - **CA**: authority whose signature is trusted to vouch for identities.
