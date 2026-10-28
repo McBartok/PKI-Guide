@@ -1,0 +1,12 @@
+sequenceDiagram
+    participant C as Client
+    participant S as Server
+    C->>S: ClientHello (versions, ciphers, key share, SNI = host)
+    S->>C: ServerHello (chosen cipher, key share)
+    Note over C,S: Both derive shared keys (ECDHE). Rest is encrypted.
+    S->>C: Certificate (leaf + intermediates)
+    S->>C: CertificateVerify (signature with server private key)
+    S->>C: Finished
+    Note over C: Validate chain, hostname, validity, EKU
+    C->>S: Finished
+    C-->>S: Encrypted application data

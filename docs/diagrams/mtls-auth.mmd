@@ -1,0 +1,6 @@
+sequenceDiagram
+    participant C as Client
+    participant S as Server
+    S->>C: Certificate + CertificateRequest
+    C->>S: Client Certificate + CertificateVerify
+    Note over S: Validate client chain, EKU=clientAuth, map identity

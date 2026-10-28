@@ -14,17 +14,7 @@ TLS gives a connection **confidentiality, integrity, and authentication**. Certi
 
 ### Simplified TLS 1.3 handshake (server auth)
 
-| Step | Client | Server |
-|---|---|---|
-| 1 | `ClientHello` (versions, ciphers, key share, SNI=host) |  |
-| 2 |  | `ServerHello` (chosen cipher, key share) |
-| 3 | Both sides derive shared keys from ECDHE; following handshake messages are encrypted | |
-| 4 |  | `Certificate` (leaf + intermediates) |
-| 5 |  | `CertificateVerify` (signature with server private key) |
-| 6 |  | `Finished` |
-| 7 | Validate chain, hostname, validity, EKU | |
-| 8 | `Finished` | |
-| 9 | Encrypted application data | Encrypted application data |
+![TLS 1.3 server-auth handshake](../assets/img/tls13-server-auth.svg)
 
 What each part does:
 - **SNI**: the client says which hostname it wants, so a server hosting many names can pick the right certificate.
@@ -38,11 +28,7 @@ This diagram omits protocol details and optional features such as session resump
 ### Mutual TLS (mTLS)
 In mTLS the server also sends a `CertificateRequest`; the client presents its own certificate and a `CertificateVerify`. The server validates it against a trust store (often a private CA) and typically maps a SAN-based certificate identity to an authorisation decision. The exact identity field should follow the protocol and issuance policy; do not rely on a legacy CN by default.
 
-| mTLS step | Client | Server |
-|---|---|---|
-| 1 |  | Sends `Certificate` + `CertificateRequest` |
-| 2 | Sends client `Certificate` + `CertificateVerify` | |
-| 3 |  | Validates client chain, EKU=`clientAuth`, and maps identity |
+![Mutual TLS certificate authentication flow](../assets/img/mtls-auth.svg)
 
 Use mTLS for service-to-service identity, where both ends need to prove who they are without passwords or API keys. Authentication identifies the peer; the application must still map that identity to an authorisation decision.
 

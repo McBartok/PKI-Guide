@@ -26,6 +26,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Generate diagram images
+        run: |
+          mkdir -p docs/assets/img
+          npx -y @mermaid-js/mermaid-cli -i docs/diagrams/tls13-server-auth.mmd -o docs/assets/img/tls13-server-auth.svg -b transparent
+          npx -y @mermaid-js/mermaid-cli -i docs/diagrams/mtls-auth.mmd -o docs/assets/img/mtls-auth.svg -b transparent
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
