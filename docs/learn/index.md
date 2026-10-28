@@ -16,5 +16,7 @@ Follow these chapters in order:
 5. [Certificate lifecycle](05-certificate-lifecycle.md)
 6. [Where you use it](06-where-you-use-it.md)
 7. [Modern PKI and advanced topics](07-modern-pki-and-advanced-topics.md)
-
-Optional next step: [Trust failures, pinning, and case studies](../reference/07-trust-failures-pinning-and-case-studies.md).
+8. [Debugging cheat sheet](../reference/debugging-cheat-sheet.md)
+9. [Trust failures, pinning, and case studies](../reference/07-trust-failures-pinning-and-case-studies.md)
+10. [Navigation and sidebar ordering](../reference/navigation-and-sidebar-ordering.md)
+11. [Glossary](../glossary.md)

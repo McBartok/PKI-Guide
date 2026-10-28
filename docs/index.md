@@ -9,8 +9,7 @@ A short, concept-first guide for developers and engineers who use certificates (
 
 ## Start here
 
-The main flow is the [Learn path](learn/index.md) (chapters 0-7).  
-Use [Reference](reference/index.md) as optional deep-dive and troubleshooting material.
+The main flow is the [Learn path](learn/index.md) (chapters 0-11).
 
 ## Choose a goal
 

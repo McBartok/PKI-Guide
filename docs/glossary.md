@@ -1,7 +1,7 @@
 ---
 title: Glossary
-parent: Reference
-nav_order: 4
+parent: Learn path
+nav_order: 11
 ---
 
 # Glossary

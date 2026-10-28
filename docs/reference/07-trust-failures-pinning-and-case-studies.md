@@ -1,7 +1,7 @@
 ---
 title: Trust failures, pinning, and case studies
-parent: Reference
-nav_order: 2
+parent: Learn path
+nav_order: 9
 ---
 
 # 7. Appendix: Trust failures, pinning, and case studies

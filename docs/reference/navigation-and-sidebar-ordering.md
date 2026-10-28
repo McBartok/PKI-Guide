@@ -1,7 +1,7 @@
 ---
 title: Navigation and sidebar ordering
-parent: Reference
-nav_order: 3
+parent: Learn path
+nav_order: 10
 ---
 
 # Navigation and sidebar ordering
@@ -26,10 +26,11 @@ Apply that pattern consistently for all Learn modules:
 - ...
 - Module 07 → `nav_order: 7`
 
-For supporting pages:
-- Debugging cheat sheet → Reference `nav_order: 1`
-- Trust failures/case studies → Reference `nav_order: 2`
-- Glossary → Reference `nav_order: 4`
+For supporting pages in a single-flow sidebar:
+- Debugging cheat sheet → Learn path `nav_order: 8`
+- Trust failures/case studies → Learn path `nav_order: 9`
+- Navigation/sidebar ordering → Learn path `nav_order: 10`
+- Glossary → Learn path `nav_order: 11`
 
 ## Recommended `_config.yml` baseline
 

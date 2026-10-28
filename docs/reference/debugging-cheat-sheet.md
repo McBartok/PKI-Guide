@@ -1,7 +1,7 @@
 ---
 title: Debugging cheat sheet
-parent: Reference
-nav_order: 1
+parent: Learn path
+nav_order: 8
 ---
 
 # Debugging cheat sheet

@@ -1,14 +1,8 @@
 ---
 title: Reference
-nav_order: 3
-has_children: true
+nav_exclude: true
 ---
 
 # Reference
 
-Use these pages as optional material after or alongside the [Learn path](../learn/index.md).
-
-- [Debugging cheat sheet](debugging-cheat-sheet.md)
-- [Trust failures, pinning, and case studies](07-trust-failures-pinning-and-case-studies.md)
-- [Navigation and sidebar ordering](navigation-and-sidebar-ordering.md)
-- [Glossary](../glossary.md)
+This section has been merged into the main [Learn path](../learn/index.md) for a single linear flow.
