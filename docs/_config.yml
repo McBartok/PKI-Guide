@@ -6,6 +6,7 @@ baseurl: "/PKI-Guide"
 
 search_enabled: true
 heading_anchors: true
+nav_sort: case_insensitive
 back_to_top: true
 back_to_top_text: Back to top
 

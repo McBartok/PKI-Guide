@@ -10,4 +10,5 @@ Use these pages as optional material after or alongside the [Learn path](../lear
 
 - [Debugging cheat sheet](debugging-cheat-sheet.md)
 - [Trust failures, pinning, and case studies](07-trust-failures-pinning-and-case-studies.md)
+- [Navigation and sidebar ordering](navigation-and-sidebar-ordering.md)
 - [Glossary](../glossary.md)

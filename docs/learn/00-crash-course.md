@@ -108,6 +108,7 @@ Your OS, browser, or runtime ships a **trust store** of roots. A certificate is 
 | CSR, issuance, ACME, renewal, revocation | [5. Lifecycle](05-certificate-lifecycle.md) |
 | TLS handshake, mTLS | [4. TLS and mTLS flow](04-tls-and-mtls-flow.md) |
 | Real-world uses, pitfalls, debugging | [6. Where you use it](06-where-you-use-it.md) |
+| Post-quantum migration, ACME/EST, SPIFFE/SPIRE, CT/CAA | [7. Modern PKI topics](07-modern-pki-and-advanced-topics.md) |
 
 ## Recap
 - Crypto gives confidentiality and integrity; PKI adds authentication.
