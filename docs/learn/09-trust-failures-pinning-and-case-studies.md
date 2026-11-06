@@ -24,6 +24,7 @@ requests.get("https://api.example.com", verify=False)   # no authentication at a
 requests.get("https://api.example.com")                 # default: chain + hostname checked
 requests.get("https://api.example.com", verify="internal-root.pem")  # right fix for a private CA
 ```
+Note that `verify="internal-root.pem"` *replaces* the default CA bundle for that call, so public sites fail with it. Use it only for calls to the internal service, or build a bundle that contains both.
 - **Why it is common:** it "fixes" the error in dev and then ships. Fix the trust (add the right CA) instead.
 
 ### 2. A malicious or unwanted root enters your trust store
@@ -70,7 +71,7 @@ Covered in [chapter 5](../learn/05-certificate-lifecycle.md#compromise-and-incid
 - **Only protects the client you control.** It is for apps and services you build and can update, not for general browsing.
 
 ### History: why browsers dropped it
-HTTP Public Key Pinning (HPKP) let websites tell browsers which keys to pin. It was removed, because a mistake or an attacker who briefly controlled a site could lock users out for months. Chrome and others rely on Certificate Transparency, CAA, and vendor blocklists instead. Pinning today is mainly a client-side choice in mobile apps, thick clients, and service-to-service connections.
+HTTP Public Key Pinning (HPKP) let websites tell browsers which keys to pin. Chrome removed it in 2019 (Chrome 72), because a mistake or an attacker who briefly controlled a site could lock users out for months. Browsers now rely on Certificate Transparency enforcement and vendor blocklists, while CAA (checked by CAs, not browsers) limits issuance up front. Chrome still ships a small set of built-in pins for a few high-value domains. Pinning today is mainly a client-side choice in mobile apps, thick clients, and service-to-service connections.
 
 ### How: pin the public key hash
 Hash the Subject Public Key Info (SPKI), which stays the same if the key is reused across renewals:
@@ -97,6 +98,8 @@ with socket.create_connection(("api.example.com", 443)) as sock:
         if base64.b64encode(hashlib.sha256(spki).digest()).decode() not in PINS:
             raise ssl.SSLError("pin mismatch")
 ```
+This example pins the leaf key only, because `getpeercert()` returns just the leaf. To pin an intermediate or root (the more robust option in the table above), check the SPKI of each certificate from `tls.get_verified_chain()` (Python 3.13+) and accept if any matches.
+
 Prefer your platform's built-in support where it exists (Android Network Security Config, iOS App Transport Security / `URLSession` pinning, OkHttp `CertificatePinner`), since those handle chains and failures correctly.
 
 ## Case studies
@@ -108,6 +111,7 @@ Prefer your platform's built-in support where it exists (Android Network Securit
 | **Symantec (2015-2018)** | Repeated mis-issuance and audit failures led Chrome and Mozilla to phase out trust in Symantec roots. | Root programs can distrust a very large CA on a schedule. |
 | **Superfish / eDellRoot (2015)** | Laptops shipped with preinstalled roots whose private keys were included or easily extracted, allowing anyone to MITM those users. | A root you did not choose, whose key is not protected, is a skeleton key. |
 | **Kazakhstan root (2019)** | The government tried to make citizens install a root CA to intercept HTTPS; browsers blocked it. | Trust-store changes are an attack surface. |
+| **Entrust (2024)** | After years of compliance failures and slow incident response, Chrome (followed by Mozilla and Apple) stopped trusting Entrust TLS certificates issued after a cutoff date in late 2024. Existing certificates kept working until expiry. | Root programs distrust on a schedule; keep a CA inventory and CA-agnostic automation so you can switch quickly. |
 | **eMudhra / emSign (October 2026)** | Private keys for multiple intermediates became recoverable. | Key generation quality matters; fast blocklists do not reach every client equally fast. |
 
 ### eMudhra intermediate key compromise (October 2026, dated case study)

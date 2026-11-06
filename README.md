@@ -2,7 +2,7 @@
 
 A short, concept-first guide for developers and engineers who use certificates (HTTPS, mTLS, signing) and want to understand **how, why, and where** they work, not just which flags make the error go away.
 
-## Guide flow (0-10)
+## Guide flow (0-11)
 
 0. [Crash course](docs/learn/00-crash-course.md): the whole picture in one sitting (new to this? start here; otherwise skip to 1)
 1. [Cryptography foundations](docs/learn/01-crypto-foundations.md): security properties, hashing, symmetric/asymmetric, forward secrecy, algorithm choice
@@ -15,10 +15,12 @@ A short, concept-first guide for developers and engineers who use certificates (
 8. [Debugging cheat sheet](docs/learn/08-debugging-cheat-sheet.md): triage flow, commands, and common errors
 9. [Trust failures, pinning, and case studies](docs/learn/09-trust-failures-pinning-and-case-studies.md): deeper threat scenarios and incident analysis
 10. [Glossary](docs/learn/10-glossary.md): quick definitions for core PKI/TLS terms
+11. [Hands-on lab](docs/learn/11-hands-on-lab.md): build a three-level PKI, serve HTTPS, and reproduce common errors on purpose
 
 ## Conventions
 
-- Snippets use `openssl` and Python (`cryptography` package). They illustrate concepts; they are not labs.
+- Snippets use `openssl` and Python (`cryptography` package). In chapters 0-10 they illustrate concepts; chapter 11 is a step-by-step lab.
+- Chapters 0 and 2-5 end with self-check questions.
 - Each chapter ends with a short recap.
 
 ## Prerequisites and scope

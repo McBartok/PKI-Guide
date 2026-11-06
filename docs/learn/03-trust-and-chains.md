@@ -28,6 +28,26 @@ A trust store is the set of root certificates a system accepts. The OS, browsers
 
 The configured trust anchor is an input to validation; it is not normally supplied by the server. A server should send the leaf and required intermediates, while the client supplies the trust anchor from its own store. Trust-store contents and update mechanisms differ across operating systems, language runtimes, container images, and embedded devices.
 
+### How the verifier builds the path
+The server hands over a leaf and some intermediates; the client has a trust store. The verifier must connect them, working **upward** from the leaf:
+
+```text
+  Leaf (from server)            Intermediate (from server)        Root (from client's trust store)
+ ┌────────────────────────┐    ┌────────────────────────────┐    ┌────────────────────────────┐
+ │ Subject: localhost     │    │ Subject: Lab Intermediate  │    │ Subject: Lab Root CA       │
+ │ Issuer:  Lab Intermed. ├───►│ Issuer:  Lab Root CA       ├───►│ Issuer:  Lab Root CA (self)│
+ │ AKI:     AA:11:35:...  │    │ SKI:     AA:11:35:...      │    │ trusted by configuration   │
+ │ Signature by intermed. │    │ Public key verifies leaf   │    │ Public key verifies interm.│
+ └────────────────────────┘    └────────────────────────────┘    └────────────────────────────┘
+         "issued by" = Issuer matches the next Subject (and AKI matches the next SKI)
+         "verified with" = the next certificate's public key checks this certificate's signature
+```
+
+At each step the verifier:
+1. **Finds a candidate issuer:** a certificate whose **Subject** equals this certificate's **Issuer**. The **Authority Key Identifier** (AKI) in the child should match the **Subject Key Identifier** (SKI) of the parent; this picks the right one when a CA has several keys.
+2. **Looks in three places:** the certificates the server sent, the trust store, and (in some clients) the **AIA** URL in the certificate, which points to where the issuer can be downloaded. Browsers fetch or cache missing intermediates this way; most libraries and tools (OpenSSL, curl, Python, Java by default) do not, which is why a missing intermediate "works in the browser" but fails in code.
+3. **Stops when it reaches a trust anchor.** Then it checks every link, as described below.
+
 ### Path validation
 To accept a leaf, the verifier builds a path to a trusted root and checks:
 1. Each signature verifies using the next certificate's public key.
@@ -86,6 +106,23 @@ Choosing public versus private CA, deciding what to put in a trust store, and fi
 
 ## Recap
 - Trust flows from a small set of roots through signed chains.
-- Verification = signatures + validity + name + purpose + revocation.
+- Verification = signatures + validity + name + purpose + revocation (where checked).
 - Skipping verification or trusting a rogue root gives an attacker silent MITM; a compromised intermediate or root lets them mint valid certs.
 - Send leaf + intermediates; clients hold roots.
+
+## Check your understanding
+
+1. Why doesn't the server need to send the root certificate?
+2. A site works in Chrome but `curl` fails with `unable to get local issuer certificate`. What is the most likely cause?
+3. Why is a root certificate trusted, given that nobody else signed it?
+4. Your service works on your laptop but fails inside a container. What should you compare first?
+
+<details markdown="block">
+<summary>Answers</summary>
+
+1. The client must already have the root in its trust store. A root sent by the server is not trusted just because it was sent.
+2. The server is not sending its intermediate. Chrome fetches or caches it via AIA, but curl does not.
+3. Because it was placed in the trust store by configuration (by the OS, browser, runtime, or you). Its self-signature proves nothing about trust.
+4. The trust stores: the container image may lack `ca-certificates` or your private root.
+
+</details>

@@ -9,12 +9,15 @@ A short, concept-first guide for developers and engineers who use certificates (
 
 ## Start here
 
-The main flow is the [Learn path](learn/index.md) (chapters 0-10).
+The main flow is the [Learn path](learn/index.md) (chapters 0-11).
 
 ## Choose a goal
 
 ### New to PKI
-Start with [Crash course](learn/00-crash-course.md), then continue through the [Learn path](learn/index.md).
+Start with the [Crash course](learn/00-crash-course.md), then read chapters [2](learn/02-certificates-and-x509.md), [3](learn/03-trust-and-chains.md), and [4](learn/04-tls-and-mtls-flow.md), and do the [Hands-on lab](learn/11-hands-on-lab.md). It takes about 30 minutes, and you'll see every concept working, and failing, on your own machine.
+
+### Need to get something working
+See the [practical recipes](learn/06-where-you-use-it.md#practical-recipes): trusting a private CA in each runtime, serving the full chain, HTTPS on localhost, and working behind a corporate proxy.
 
 ### Need to debug a certificate issue now
 Read [Trust and chains](learn/03-trust-and-chains.md), [TLS and mTLS flow](learn/04-tls-and-mtls-flow.md), and the [Debugging cheat sheet](learn/08-debugging-cheat-sheet.md).

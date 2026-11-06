@@ -13,9 +13,21 @@ nav_order: 7
 Classical public-key systems (RSA, ECDSA, ECDH) are widely trusted today, but large-scale quantum computers would eventually threaten them.  
 Practical migration is about **agility first**, not abrupt replacement.
 
+NIST finalised the first post-quantum standards in August 2024:
+
+| Standard | Algorithm | Replaces |
+|---|---|---|
+| FIPS 203 | ML-KEM (key encapsulation) | ECDH / DH key exchange |
+| FIPS 204 | ML-DSA (signatures) | RSA / ECDSA signatures |
+| FIPS 205 | SLH-DSA (hash-based signatures) | RSA / ECDSA signatures (conservative alternative) |
+
+The migration has two tracks with different urgency:
+- **Key exchange: deploy now.** An attacker can record traffic today and decrypt it once a quantum computer exists ("harvest now, decrypt later"). Hybrid key exchange (`X25519MLKEM768`) combines X25519 with ML-KEM, so it stays secure if either algorithm holds. It is already on by default in Chrome, Firefox, Safari, major CDNs, OpenSSL 3.5+, and Go. Make sure your TLS stacks and middleboxes allow it. Its larger ClientHello has broken some older middleboxes.
+- **Certificates and signatures: prepare.** A forged signature only matters once a quantum computer exists, so there is no "record now" risk. Public CAs do not yet issue post-quantum certificates. ML-DSA certificates are large, and the browser ecosystem is still exploring alternatives (for example Merkle Tree Certificates). Private PKIs can start testing ML-DSA where their HSMs and clients support it.
+
 Key points:
 - Keep algorithm choices configurable in issuance and validation pipelines.
-- Track support for emerging algorithms (for example ML-DSA and SLH-DSA) across CAs, HSMs, TLS stacks, and client platforms.
+- Track support for ML-KEM, ML-DSA, and SLH-DSA across CAs, HSMs, TLS stacks, and client platforms.
 - Prefer staged rollouts (pilot, dual-path, baseline) over big-bang migrations.
 - Expect **hybrid deployments** (classical + post-quantum) during transition periods.
 
@@ -65,7 +77,7 @@ CT increases visibility into public certificate issuance:
 
 CAA DNS records narrow issuance authorization:
 - Publish which CAs may issue for your domain.
-- Public CAs should honor CAA before issuance.
+- Public CAs must check CAA before issuance (mandatory since September 2017).
 - CAA does not replace CT; use both.
 
 Example CAA records:
@@ -75,7 +87,7 @@ example.com. 3600 IN CAA 0 iodef "mailto:security@example.com"
 ```
 
 ## Recap
-- Build crypto agility now so algorithm transitions are operationally safe.
+- Enable hybrid post-quantum key exchange now; build crypto agility so the later certificate migration is operationally safe.
 - Prefer ACME/EST automation over manual CSR workflows.
 - Use cloud-native identity systems to issue short-lived mTLS certificates at scale.
 - Combine CT monitoring and CAA policy to reduce and detect mis-issuance risk.
