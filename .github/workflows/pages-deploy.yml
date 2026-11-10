@@ -40,8 +40,8 @@ jobs:
             "args": ["--no-sandbox", "--disable-setuid-sandbox"]
           }
           EOF
-          npx -y @mermaid-js/mermaid-cli -p /tmp/puppeteer-config.json -i docs/diagrams/tls13-server-auth.mmd -o docs/assets/img/tls13-server-auth.svg -b transparent
-          npx -y @mermaid-js/mermaid-cli -p /tmp/puppeteer-config.json -i docs/diagrams/mtls-auth.mmd -o docs/assets/img/mtls-auth.svg -b transparent
+          npx -y @mermaid-js/mermaid-cli@12.2.0 -p /tmp/puppeteer-config.json -i docs/diagrams/tls13-server-auth.mmd -o docs/assets/img/tls13-server-auth.svg -b white
+          npx -y @mermaid-js/mermaid-cli@12.2.0 -p /tmp/puppeteer-config.json -i docs/diagrams/mtls-auth.mmd -o docs/assets/img/mtls-auth.svg -b white
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

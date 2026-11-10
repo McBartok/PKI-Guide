@@ -41,8 +41,8 @@ EOF
 }
 EOF
 
-    mmdc -p /tmp/puppeteer-config.json -i docs/diagrams/tls13-server-auth.mmd -o docs/assets/img/tls13-server-auth.svg -b transparent
-    mmdc -p /tmp/puppeteer-config.json -i docs/diagrams/mtls-auth.mmd -o docs/assets/img/mtls-auth.svg -b transparent
+    mmdc -p /tmp/puppeteer-config.json -i docs/diagrams/tls13-server-auth.mmd -o docs/assets/img/tls13-server-auth.svg -b white
+    mmdc -p /tmp/puppeteer-config.json -i docs/diagrams/mtls-auth.mmd -o docs/assets/img/mtls-auth.svg -b white
 
     exec jekyll serve \
       --config docs/_config.yml,/tmp/_config.local.yml \

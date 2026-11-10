@@ -23,7 +23,8 @@ RUN gem install jekyll -v "~> 4.3" --no-document \
     && gem install jekyll-include-cache --no-document \
     && gem install jekyll-relative-links --no-document
 
-# Install Mermaid CLI and clear the npm cache
-RUN npm install -g @mermaid-js/mermaid-cli && npm cache clean --force
+# Install Mermaid CLI (pinned to match .github/workflows/pages-deploy.yml so local
+# previews and the deployed site render diagrams identically) and clear the npm cache
+RUN npm install -g @mermaid-js/mermaid-cli@12.2.0 && npm cache clean --force
 
 WORKDIR /site
