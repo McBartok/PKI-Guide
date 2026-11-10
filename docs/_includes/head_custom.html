@@ -18,6 +18,31 @@
     color: #f2f2f2;
     border-color: #6a6a6a;
   }
+
+  /* Make the sidebar a single permanent menu: keep every nested section
+     (e.g. Learn path's chapters) expanded, and remove the now-unused
+     collapse/expand toggle so nothing in the nav can be collapsed. */
+  .site-nav .nav-list-item > .nav-list {
+    display: block !important;
+  }
+
+  .site-nav .nav-list-expander {
+    display: none !important;
+  }
+
+  /* Diagrams are rendered on a solid white background (not transparent),
+     so they stay readable in dark mode. Frame them in a light card so the
+     white canvas doesn't look jarring against a dark page background. */
+  .main-content img[src$=".svg"] {
+    display: block;
+    max-width: 100%;
+    margin: 1rem auto;
+    padding: 1rem;
+    background: #ffffff;
+    border: 1px solid #d0d7de;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  }
 </style>
 
 <script>

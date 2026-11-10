@@ -7,6 +7,6 @@ sequenceDiagram
     S->>C: Certificate (leaf + intermediates)
     S->>C: CertificateVerify (signature with server private key)
     S->>C: Finished
-    Note over C: Validate chain, hostname, validity, EKU
+    Note over C,S: Validate chain, hostname, validity, EKU
     C->>S: Finished
     C-->>S: Encrypted application data
