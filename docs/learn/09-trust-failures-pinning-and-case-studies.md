@@ -112,15 +112,19 @@ Prefer your platform's built-in support where it exists (Android Network Securit
 | **Superfish / eDellRoot (2015)** | Laptops shipped with preinstalled roots whose private keys were included or easily extracted, allowing anyone to MITM those users. | A root you did not choose, whose key is not protected, is a skeleton key. |
 | **Kazakhstan root (2019)** | The government tried to make citizens install a root CA to intercept HTTPS; browsers blocked it. | Trust-store changes are an attack surface. |
 | **Entrust (2024)** | After years of compliance failures and slow incident response, Chrome (followed by Mozilla and Apple) stopped trusting Entrust TLS certificates issued after a cutoff date in late 2024. Existing certificates kept working until expiry. | Root programs distrust on a schedule; keep a CA inventory and CA-agnostic automation so you can switch quickly. |
-| **eMudhra / emSign (October 2026)** | Private keys for multiple intermediates became recoverable. | Key generation quality matters; fast blocklists do not reach every client equally fast. |
+| **eMudhra / emSign (October 2026)** | Private keys for 8 intermediate CAs (and cross-signs) were generated with near-zero entropy and trivially recovered. Rapid browser blocklists protected users, but lack of automated revocation downstream forced an emergency root distrust of `emSign ECC Root CA - G3`. | Key generation quality and entropy checks are critical; when intermediate revocation cannot reliably reach every non-browser runtime, root programs must distrust the root. |
 
-### eMudhra intermediate key compromise (October 2026, dated case study)
-Status note: this summary reflects public information available as of **2026-10-27** and may evolve.
+### eMudhra intermediate key compromise (October 2026 case study)
 
-This case is based on the Mozilla Bugzilla report ([bug 2083449](https://bugzilla.mozilla.org/show_bug.cgi?id=2083449)) and Mozilla's [security blog post](https://blog.mozilla.org/security/2026/10/20/protecting-firefox-users-following-the-compromise-of-emudhra-intermediate-certificates/).
+This incident ([Mozilla Bug 2083449](https://bugzilla.mozilla.org/show_bug.cgi?id=2083449) and [Mozilla Security Blog](https://blog.mozilla.org/security/2026/10/20/protecting-firefox-users-following-the-compromise-of-emudhra-intermediate-certificates/)) provides a modern textbook example of intermediate compromise, recovery mechanics, and ecosystem distrust.
 
-- **What:** a researcher reported on 17 October 2026 that private keys of eight eMudhra intermediate CA certificates could be recovered.
-- **Why it worked:** per the report, a flaw in key generation made keys practically recoverable.
-- **Impact:** anyone with those keys could issue valid certs for many sites and impersonate them when able to intercept traffic.
-- **Response:** major browser ecosystems pushed blocklist/revocation updates quickly; the affected intermediates were revoked.
-- **What to learn:** vendor blocklists can contain damage fast, but runtimes that do not receive timely trust-store or blocklist updates may remain exposed longer.
+- **What happened:** On 17 October 2026, an external security researcher proved possession of the private keys for eight eMudhra intermediate CAs (six TLS issuing CAs and two code signing CAs, plus Sectigo cross-signs).
+- **The cryptographic flaw:** The affected keys were NIST P-384 elliptic curve keys. A proper P-384 private key is a randomly chosen 384-bit integer. In this batch, however, the private keys were integers **less than 256**—meaning 47 leading bytes were `0x00` and only the final byte had non-zero values. The keys were trivially recoverable in seconds by basic brute-forcing of values $1 \dots 255$ or standard discrete logarithm algorithms.
+- **Root cause:** During a Key Generation Ceremony (KGC) deviation testing HSM key wrap/unwrap for cross-border data sovereignty, a script error generated a weaker secondary set of keys in software/HSM memory. Because key labels were similar, these weak keys were mistakenly used to create the production CSRs and signed by the root.
+- **The response and containment asymmetry:**
+  1. *Browsers acted within hours:* Mozilla updated OneCRL within 3 hours; Chrome updated CRLSets; emergency browser updates (Firefox 158.0.1) rolled out to embed updated blocklists.
+  2. *The non-browser world remained exposed:* Tools like `curl`, Python (`requests`/`certifi`), Go, and container runtimes generally do not ingest browser push blocklists or check CRLs by default.
+  3. *Emergency root distrust:* Because the compromised intermediates could not be reliably revoked across the broader non-browser ecosystem, Mozilla (via NSS 3.131.1 / Bug 2084101) and Google took the emergency step of **completely distrusting the parent root (`emSign ECC Root CA - G3`)**, forcing eMudhra to migrate all ~30,000 active subscribers over to their RSA root hierarchy (`emSign Root CA - G1`).
+- **What to learn:**
+  - Key ceremony scripts and HSM integrations must enforce strict entropy and sanity checks before CSR creation and signing.
+  - Browser blocklists (OneCRL, CRLSet) protect browser users quickly, but the fragility of revocation in backend runtimes means an intermediate compromise often ends in full root distrust.

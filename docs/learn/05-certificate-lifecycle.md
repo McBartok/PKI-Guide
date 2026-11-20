@@ -65,7 +65,7 @@ The period for which a CA may reuse a domain-validation result shrinks in parall
 
 ### Revocation
 What if a key is compromised before expiry?
-- **CRL**: the CA publishes a signed list of revoked serials. Can be large, but CAs can split them (partitioned CRLs). Public CAs must publish CRLs.
+- **CRL**: the CA publishes a signed list of revoked serials. Can be large, but CAs can split them (partitioned CRLs). Public CAs are required to publish CRLs under CA/Browser Forum rules. However, **standard client tools and libraries (such as `curl`, OpenSSL CLI, Python `requests`, Go `crypto/tls`) do not check CRLs by default**; enabling CRL validation requires explicit flags (e.g. OpenSSL `-crl_check`) and downloading the CRL.
 - **Browser-pushed revocation**: browsers aggregate CRLs and push compact updates to clients (Firefox CRLite, Chrome CRLSet). This is where public-web revocation checking is heading.
 - **OCSP**: ask the CA about one cert's status. Adds latency and leaks which sites you visit to the CA. Since 2023 OCSP is optional for public CAs, and some large CAs have dropped it (Let's Encrypt shut down its OCSP service in 2025). It is still common in private and enterprise PKI.
 - **OCSP stapling**: the server attaches a recent signed OCSP response to the handshake. It fixes OCSP's latency and privacy issues but only works where the CA still runs OCSP; OCSP Must-Staple is effectively deprecated.

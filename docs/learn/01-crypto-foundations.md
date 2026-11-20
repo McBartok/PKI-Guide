@@ -63,7 +63,12 @@ A valid signature proves that the holder of the private key signed the data and 
 ### Key exchange and forward secrecy
 **Diffie-Hellman (ECDHE, X25519)**: each side generates a temporary key pair, exchanges the public halves, and both compute the same shared secret. An eavesdropper sees only the public halves and cannot compute it. This is the "authenticate and agree on a key" step of the hybrid pattern: the shared secret then keys the symmetric cipher.
 
-With **ephemeral** keys (the "E"), session keys are discarded after use. If the server's long-term private key is stolen later, **previously recorded traffic stays safe**. This is **forward secrecy**. Every full TLS 1.3 handshake uses ephemeral key exchange, and the certificate key is used only to *sign*, not to protect session keys. Session resumption is weaker: PSK-only resumption has no forward secrecy, and resumed sessions and 0-RTT early data depend on the server's session-ticket keys, so those keys must be rotated and protected too.
+With **ephemeral** keys (the "E"), session keys are discarded after use. If the server's long-term private key is stolen later, **previously recorded traffic stays safe**. This is **forward secrecy**. Every full TLS 1.3 handshake uses ephemeral key exchange, and the certificate key is used only to *sign*, not to protect session keys.
+
+Session resumption is more nuanced: TLS 1.3 supports two Pre-Shared Key (PSK) modes:
+- **`psk_ke` (PSK-only)**: uses only the resumption secret derived from the previous session; it has **no forward secrecy** if the server's session-ticket encryption key is later compromised.
+- **`psk_dhe_ke` (PSK with (EC)DHE)**: combines the PSK with a fresh ephemeral key exchange, **restoring forward secrecy** for the main session against subsequent ticket-key compromise.
+Note that 0-RTT early data itself always lacks forward secrecy under either mode, and ticket encryption keys must still be securely rotated and protected.
 
 ### Randomness
 All of this depends on unpredictable keys and nonces. Use the OS CSPRNG (`os.urandom`, `secrets`, `/dev/urandom`), never `random` or a timestamp. Weak randomness (predictable keys, repeated nonces) has broken otherwise sound systems. Be careful with freshly booted VMs, containers, and embedded devices.

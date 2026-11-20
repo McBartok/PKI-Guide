@@ -35,7 +35,7 @@ The TLS flow diagrams are maintained as Mermaid source and compiled into SVG dur
 
 - Source files: [docs/diagrams/](docs/diagrams/)
 - Generated images: [docs/assets/img/](docs/assets/img/)
-- Build steps are in [pages-deploy.yml](.github/workflows/pages-deploy.yml) and [docs-guardrails.yml](.github/workflows/docs-guardrails.yml)
+- Build steps are in [pages-deploy.yml](.github/workflows/pages-deploy.yml)
 
 When editing diagram content, update the `.mmd` files; workflows regenerate the `.svg` assets before site build.
 
